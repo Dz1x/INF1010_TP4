@@ -1,21 +1,35 @@
-/*
-Fichier: Dresseur.cpp
-Auteur(s): Alexandre MAO
-Date de creation: 31 aout 2016
-Date de modification:  6 septembre 2016 par Maude Carrier
-Description:
-*/
+/****************************************************************************
+ * Fichier: Polyland.cpp
+ * Auteur: Anass Bahir <anass.bahir@polymtl.ca> et Haroun Khalfi <haroun.khalfi@polymtl.ca>
+ * Date: 15 mai 2019
+ * Mise à jour : 31 mai 2019
+ * Description: Implémentation de la classe Polyland
+ *				Polyland represente le pays que l'on va explorer, il va contenir les differents éléments du jeu.
+ ****************************************************************************/
+
 #include "PolyLand.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
 
-PolyLand::PolyLand() {};
+ /****************************************************************************
+	* Fonction: PolyLand::PolyLand
+	* Description: Constructeur par défaut
+	* Paramètres: aucun
+	* Retour: aucun
+	****************************************************************************/
+PolyLand::PolyLand() : creatures_(), dresseurs_() {
 
+}
 
-PolyLand::~PolyLand() 
-{
+/****************************************************************************
+ * Fonction: PolyLand::~PolyLand
+ * Description: Destructeur de l'objet Dresseur
+ * Paramètres: aucun
+ * Retour: aucun
+ ****************************************************************************/
+PolyLand::~PolyLand() {
 	while (creatures_.size() != 0)
 	{
 		delete creatures_.back();
@@ -29,63 +43,92 @@ PolyLand::~PolyLand()
 	}
 }
 
-
-bool PolyLand::ajouterDresseur(Dresseur* dresseur)
-{
-	for (unsigned int i = 0; i < dresseurs_.size(); i++)
-	{
-		if (dresseur->obtenirNom() == *(dresseurs_[i]))
-		{
-			std::cout << dresseur->obtenirNom() << " n'a pas ete ajoute" << std::endl;
+/****************************************************************************
+ * Fonction: PolyLand::ajouterDresseur
+ * Description: Il prend en paramètre un dresseur et qui l’ajoute au
+ *				tableau de dresseur. Deux dresseurs ne peuvent pas avoir le même nom.
+ * Paramètres: - (Dresseur*) dresseur: C'est le nouveau dresseur à ajouter au tableau dresseurs_
+ * Retour: (bool) true or false
+ ****************************************************************************/
+bool PolyLand::ajouterDresseur(Dresseur& dresseur) {
+	for (Dresseur* dresseurDansVecteur : dresseurs_) {
+		if (dresseurDansVecteur == &dresseur) {
+			cout << dresseur.obtenirNomDresseur() << " n'a pas bien ete ajoute" << endl;
 			return false;
 		}
 	}
-	dresseurs_.push_back(dresseur);
-	std::cout << dresseur->obtenirNom() << " a bien été ajouté !" << std::endl;
+
+	dresseurs_.push_back(&dresseur);
+	cout << dresseur.obtenirNomDresseur() << " a bien ete ajoute" << endl;
 	return true;
 }
 
-bool PolyLand::retirerDresseur(const std::string& nom)
-{
-	for (unsigned int i = 0; i < dresseurs_.size(); i++)
-	{
-		if (*(dresseurs_[i]) == nom)
-		{
-			dresseurs_[i] = dresseurs_.back();
+/****************************************************************************
+ * Fonction: PolyLand::ajouterCreature
+ * Description: Il qui permet d’ajouter la créature reçue en paramètre au
+ *				tableau de créature. Deux créature ne peuvent pas avoir le même nom.
+ * Paramètres: - (Creature) creature: C'est la nouvelle créature à ajouter au tableau creatures_
+ * Retour: (bool) true or false
+ ****************************************************************************/
+bool PolyLand::ajouterCreature(Creature& creature) {
+	for (Creature* creatureDansVecteur : creatures_) {
+		if (creatureDansVecteur == &creature) {
+			cout << creature.obtenirNom() << " n'a pas bien ete ajoute" << endl;
+			return false;
+		}
+	}
+	creatures_.push_back(new Creature(creature));
+	cout << creature.obtenirNom() << " a bien ete ajoute" << endl;
+	return true;
+}
+
+/****************************************************************************
+ * Fonction: PolyLand::retirerDresseur
+ * Description: Il prend en paramètre le nom d'un dresseur et retire le dresseur
+ *				associé à ce nom du tableau dresseurs_, si celui-ci le possède. Cette méthode doit renvoyer true si
+ *				l’opération est un succès, false sinon.
+ * Paramètres: - (string) nom: C'est le nom du dresseur à retirer du tableau dresseurs_
+ * Retour: (bool) true or false
+ ****************************************************************************/
+bool PolyLand::retirerDresseur(const string& nom) {
+	for (Dresseur* dresseurDansVecteur : dresseurs_) {
+		if (*dresseurDansVecteur == nom) {
+			dresseurDansVecteur = dresseurs_[dresseurs_.size() - 1];
 			dresseurs_.pop_back();
-			std::cout << nom << " a bien été retire !" << std::endl;
 			return true;
 		}
 	}
 	return false;
 }
 
-bool PolyLand::ajouterCreature(Creature* creature)
-{
-	creatures_.push_back(new Creature(*creature));
-	std::cout << creature->obtenirNom() << " a bien été ajouté !" << std::endl;
-	return true;
-}
-
-bool PolyLand::retirerCreature(const std::string& nom)
-{
-	for (unsigned int i = 0; i < creatures_.size(); i++)
-	{
-		if (creatures_[i]->obtenirNom() == nom)
-		{
-			delete creatures_[i];
-			creatures_[i] = creatures_.back();
+/****************************************************************************
+ * Fonction: PolyLand::retirerCreature
+ * Description: Il prend en paramètre le nom d'une créature et retire la créature
+ *				associé à ce nom du tableau creatures_, si celui-ci le possède. Cette méthode doit renvoyer true si
+ *				l’opération est un succès, false sinon.
+ * Paramètres: - (string) nom: C'est le nom de la créature à retirer du tableau creatures_
+ * Retour: (bool) true or false
+ ****************************************************************************/
+bool PolyLand::retirerCreature(const string& nom) {
+	for (Creature* creatureDansVecteur : creatures_) {
+		if (creatureDansVecteur->obtenirNom() == nom) {
+			creatureDansVecteur = creatures_[creatures_.size() - 1];
 			creatures_.pop_back();
-			std::cout << nom << " a bien été retire !" << std::endl;
 			return true;
 		}
 	}
 	return false;
 }
 
-Dresseur* PolyLand::choisirDresseurAleatoire()
-{
-	if (dresseurs_.size() > 0) {
+/****************************************************************************
+ * Fonction: PolyLand::choisirDresseurAleatoire
+ * Description: Il retourne un dresseur choisi aléatoirement
+ *				dans le tableau de dresseurs.
+ * Paramètres: aucun
+ * Retour: Un pointeur vers un dresseur.
+ ****************************************************************************/
+Dresseur* PolyLand::choisirDresseurAleatoire() const {
+	if (!dresseurs_.empty()) {
 		unsigned int indice = rand() % dresseurs_.size();
 		return dresseurs_[indice];
 	}
@@ -94,9 +137,15 @@ Dresseur* PolyLand::choisirDresseurAleatoire()
 	}
 }
 
-Creature* PolyLand::choisirCreatureAleatoire()
-{
-	if (creatures_.size() > 0) {
+/****************************************************************************
+ * Fonction: PolyLand::choisirCreatureAleatoire
+ * Description: Il retourne une créature choisi aléatoirement
+ *				dans le tableau de dresseurs.
+ * Paramètres: aucun
+ * Retour: Un pointeur vers une créature.
+ ****************************************************************************/
+Creature* PolyLand::choisirCreatureAleatoire() const {
+	if (!creatures_.empty()) {
 		unsigned int indice = rand() % creatures_.size();
 		return creatures_[indice];
 	}
@@ -105,45 +154,134 @@ Creature* PolyLand::choisirCreatureAleatoire()
 	}
 }
 
-bool PolyLand::attraperCreature(Dresseur* dresseur, Creature* creature)
-{
+/****************************************************************************
+ * Fonction: PolyLand::attraperCreature
+ * Description: Il prend en paramètre un dresseur et une créature, elle
+ *				renvoie true si la créature a bien été capturée par le dresseur, false sinon. Chaque
+ *				dresseur possède une version unique de ses créatures.
+ * Paramètres: - (Creature*) creature: C'est la créature à capturer
+ *			   - (Dresseur*) dresseur: C'est le dresseur qui a capturé la créature
+ * Retour: (bool) true or false
+ ****************************************************************************/
+bool PolyLand::attraperCreature(Dresseur* dresseur, Creature& creature) {
 	return dresseur->ajouterCreature(creature);
 }
 
-bool PolyLand::relacherCreature(Dresseur* dresseur, const std::string nomCreature)
-{
+/****************************************************************************
+ * Fonction: PolyLand::relacherCreature
+ * Description:  Il prend en paramètre un dresseur et le nom d’une
+ *				 créature, elle renvoie true si la créature a bien été relâchée par le dresseur, false sinon.
+ * Paramètres: - (Creature*) creature: C'est la créature à relâcher
+ *			   - (Dresseur*) dresseur: C'est le dresseur qui relâche sa créature
+ * Retour: (bool) true or false
+ ****************************************************************************/
+bool PolyLand::relacherCreature(Dresseur* dresseur, const string& nomCreature) {
 	return dresseur->enleverCreature(nomCreature);
 }
 
-PolyLand& PolyLand::operator+= (Dresseur* dresseur)
-{
-	ajouterDresseur(dresseur);
+/****************************************************************************
+ * Fonction: operator+=
+ * Description: Surcharge l'opérateur += qui prend en paramètre un dresseur,
+ *				qui l’ajoute au vecteur de dresseurs et qui retourne la Polyland
+ *				avec les nouvelles modifications
+ * Paramètres: - (Dresseur) dresseur : Le dresseur à ajouter
+ * Retour: *this
+ ****************************************************************************/
+PolyLand PolyLand::operator+=(Dresseur& dresseur) {
+	this->ajouterDresseur(dresseur);
 	return *this;
 }
 
-PolyLand& PolyLand::operator-=(Dresseur* dresseur)
-{
-	retirerDresseur(dresseur->obtenirNom());
+/****************************************************************************
+ * Fonction: operator+=
+ * Description: Surcharge l'opérateur += qui prend en paramètre une créature,
+ *				qui l’ajoute au vecteur de créatures et qui retourne la Polyland
+ *				avec les nouvelles modifications
+ * Paramètres: - (Creature) creature : La créature à ajouter
+ * Retour: *this
+ ****************************************************************************/
+PolyLand&PolyLand::operator+=(Creature& creature) {
+	this->ajouterCreature(creature);
 	return *this;
 }
 
-PolyLand& PolyLand::operator+= (Creature* creature)
-{
-	ajouterCreature(creature);
+/****************************************************************************
+ * Fonction: operator-=
+ * Description: Surcharge l'opérateur -= qui prend en paramètre un dresseur,
+				qui l’enlève du vecteur de dresseurs et qui retourne la Polyland
+				avec les nouvelles modifications
+ * Paramètres: - (Dresseur) dresseur : Le dresseur à enlever
+ * Retour: *this
+ ****************************************************************************/
+PolyLand PolyLand::operator-=(const Dresseur& dresseur) {
+	this->retirerDresseur(dresseur.obtenirNomDresseur());
 	return *this;
 }
 
-PolyLand& PolyLand::operator-=(Creature* creature)
-{
-	retirerCreature(creature->obtenirNom());
+/****************************************************************************
+ * Fonction: operator-=
+ * Description: Surcharge l'opérateur -= qui prend en paramètre une créature,
+ *				qui l’enlève du vecteur de créatures et qui retourne la Polyland
+ *				avec les nouvelles modifications
+ * Paramètres: - (Creature) creature : La créature à retirer
+ * Retour: *this
+ ****************************************************************************/
+PolyLand PolyLand::operator-=(const Creature& creature) {
+	this->retirerCreature(creature.obtenirNom());
 	return *this;
 }
 
-std::ostream& operator<<(std::ostream& os, const PolyLand& poly)
-{
-	for (unsigned int i = 0; i < poly.dresseurs_.size(); i++)
-	{
-		os << *(poly.dresseurs_[i]);
+
+/****************************************************************************
+ * Fonction: operator==
+ * Description: Surcharge l'opérateur == pour comparer deux dresseurs
+ * Paramètres: - (Dresseur) dresseur : L'objet à comparer
+ * Retour: (bool) true or false
+ ****************************************************************************/
+bool PolyLand::operator==(const Dresseur& dresseur) const {
+	for (Dresseur* dresseurDansVecteur : dresseurs_) {
+		if (dresseurDansVecteur == &dresseur) {
+			return false;
+		}
 	}
+	return true;
+}
+
+/****************************************************************************
+ * Fonction: operator==
+ * Description: Surcharge l'opérateur == pour comparer deux créature
+ * Paramètres: - (Creature) creature : L'objet à comparer
+ * Retour: (bool) true or false
+ ****************************************************************************/
+bool PolyLand::operator==(const Creature& creature) const {
+	for (Creature* creatureDansVecteur : creatures_) {
+		if (creatureDansVecteur == &creature) {
+			return false;
+		}
+	}
+	return true;
+}
+
+/****************************************************************************
+ * Fonction: operator<<
+ * Description: Surcharge l'opérateur << pour afficher toute les informations d'un pays
+ * Paramètres: - (ostream&) os : objet de la classe ios qui permet la sortie
+ *			   - (PolyLand) objetMagique  : L'objet polyLand que l'on veut afficher
+ * Retour: aucun
+ ****************************************************************************/
+ostream& operator<<(ostream& os, const PolyLand& polyLand) {
+
+	os << "INFORMATION SUR POLYLAND" << endl;
+
+	for (Dresseur* dresseur : polyLand.dresseurs_) {
+		os << *dresseur;
+	}
+	cout << endl;
+
+	for (Creature* creature : polyLand.creatures_) {
+		os << *creature;
+	}
+	cout << endl;
+
 	return os;
 }

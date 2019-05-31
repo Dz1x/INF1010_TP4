@@ -1,46 +1,52 @@
-/*
-Fichier: PolyLand.h
-Auteur(s): Alexandre MAO
-Date de creation: 31 aout 2016
-Date de modification:  6 septembre 2016 par Maude Carrier
-Description: Polyland represente le pays que l'on va explorer, il va contenir
-            les differents elements de jeu
-*/
+/****************************************************************************
+ * Fichier: PolyLand.h
+ * Auteur: Alexandre Mao
+ * Date: 31 août 2016
+ * Mise à jour : 14 mai par David Dratwa
+ * Mise à jour : 31 mai 2019 par Anass Bahir <anass.bahir@polymtl.ca> et Haroun Khalfi <haroun.khalfi@polymtl.ca>
+ * Description: Définition de la classe PolyLand
+ *				Polyland represente le pays que l'on va explorer, il va contenir les differents éléments du jeu.
+ ****************************************************************************/
+
 #ifndef POLYLAND_H
 #define POLYLAND_H
 
 #include "Dresseur.h"
 #include "Creature.h"
-#include <vector>
-#include <iostream>
 
 class PolyLand
 {
 public:
-	PolyLand();
-	~PolyLand();
-	
-	bool ajouterDresseur(Dresseur* dresseur);
-	bool retirerDresseur(const std::string& nom);
 
-	bool ajouterCreature(Creature* creature);
-	bool retirerCreature(const std::string& nom);
+	PolyLand(); 
+	~PolyLand(); 
 
-	Dresseur* choisirDresseurAleatoire();
-	Creature* choisirCreatureAleatoire();
+	bool ajouterDresseur(Dresseur& dresseur); 
+	bool ajouterCreature(Creature& creature);
+	bool retirerDresseur(const string& nom);
+	bool retirerCreature(const string& nom);
 
-	bool attraperCreature(Dresseur* dresseur, Creature* creature);
-	bool relacherCreature(Dresseur* dresseur, const std::string nomCreature);
+	Dresseur* choisirDresseurAleatoire() const;
+	Creature* choisirCreatureAleatoire() const;
 
-	PolyLand& operator+=(Dresseur* dresseur);
-	PolyLand& operator-=(Dresseur* dresseur);
-	PolyLand& operator+=(Creature* creature);
-	PolyLand& operator-=(Creature* creature);
+	PolyLand operator+=(Dresseur& dresseur);
+	PolyLand&operator+=(Creature& creature) ;
 
-	friend std::ostream& operator<<(std::ostream& os, const PolyLand& poly);
+	PolyLand operator-=(const Dresseur& dresseur);
+	PolyLand operator-=(const Creature& creature);
+
+	bool operator==(const Dresseur& dresseur) const;
+	bool operator==(const Creature& creature) const;
+
+	bool attraperCreature(Dresseur* dresseur,  Creature& creature); 
+	bool relacherCreature(Dresseur* dresseur, const string& nomCreature); 
+
+	friend ostream& operator<<(ostream& os, const PolyLand& polyLand);
 
 private:
-	std::vector<Dresseur*> dresseurs_;
-	std::vector<Creature*> creatures_;
+
+	vector<Creature*> creatures_;
+	vector<Dresseur*> dresseurs_;
+
 };
-#endif
+#endif // !POLYLAND_H

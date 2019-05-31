@@ -1,59 +1,58 @@
-/*
-Fichier: Dresseur.h
-Auteur(s): Alexandre MAO
-Date de creation: 31 aout 2016
-Date de modification:  6 septembre 2016 par Maude Carrier
-Description: les dresseurs sont les etres capables d'attraper des creatures
-*/
+/****************************************************************************
+ * Fichier: Dresseur.h
+ * Auteur: Alexandre Mao
+ * Date: 31 août 2016
+ * Mise à jour : 14 mai par David Dratwa
+ * Mise à jour : 31 mai 2019 par Anass Bahir <anass.bahir@polymtl.ca> et Haroun Khalfi <haroun.khalfi@polymtl.ca>
+ * Description: Définition de la classe Dresseur
+ *				Les dresseurs sont les êtres capables d'attraper des créatures.
+ ****************************************************************************/
+
 #ifndef DRESSEUR_H
 #define DRESSEUR_H
 
 #include <string>
-#include "Creature.h"
-#include "ObjetMagique.h"
-#include <iostream>
 #include <vector>
+#include "Creature.h"
 
 class Dresseur
 {
 public:
+
 	Dresseur();
-	Dresseur(const std::string& nom, const std::string& equipe);
+	Dresseur(const string& nom, const string&equipe);
 	~Dresseur();
 
-	std::string obtenirNom() const;
-	void modifierNom(const std::string& nom);
-	
-	unsigned int obtenirNombreCreatures() const;
-
-	std::vector<Creature*> obtenirCreatures() const;
-	Creature* obtenirUneCreature(const std::string& nom) const;
-	void modifierCreature(std::vector<Creature*> creatures);
-	
-	bool ajouterCreature(Creature* creature);
-	bool enleverCreature(const std::string& nom);
-
+	string obtenirNomDresseur() const;
+	string obtenirNomEquipe() const;
+	Creature* obtenirUneCreature(const string&nom) const;
 	ObjetMagique obtenirObjetMagique() const;
+	unsigned int obtenirNombreCreatures() const;
+	vector<Creature*> obtenirCreatures() const;
+
+	void modifierNomDresseur(const string& nom);
+	void modifierNomEquipe(const string& nom);
+	void modifierCreature(vector<Creature*> creatures);
 	void modifierObjetMagique(const ObjetMagique& objetMagique);
+
+	bool ajouterCreature(Creature& creature);
+	bool enleverCreature(const string& nom);
 
 	void utiliserObjetMagique(Creature* creature);
 
-	std::string obtenirEquipe() const;
-	void modifierEquipe(const std::string& equipe);
+	bool operator==(const Dresseur&dresseur) const;
+	bool operator==(const string&nom) const;
+	friend bool operator==(const string&nom, const Dresseur&dresseur);
 
-	friend std::ostream& operator<<(std::ostream& os, const Dresseur& dresseur);
-
-	bool operator==(const Dresseur& dresseur) const;
-	bool operator==(const std::string& nom) const;
-	friend bool operator==(const std::string& nom, const Dresseur& dresseur);
+	friend ostream&operator<<(ostream&os, const Dresseur&dresseur);
 
 private:
-	std::string nom_;
-	std::vector<Creature*> creatures_;
-	std::string equipe_;
-	ObjetMagique objetMagique_;
 
+	string nomDresseur_;
+	string nomEquipe_;
+
+	ObjetMagique objetMagique_;
+	vector<Creature*> creatures_;
 
 };
-
-#endif
+#endif //!DRESSEUR_H

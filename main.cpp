@@ -1,10 +1,10 @@
-﻿/*
-Fichier: main.cpp
-Auteur(s): Alexandre MAO
-Date de creation: 31 aout 2016
-Date de modification: 6 septembre 2016 par Maude Carrier
-Description: Programme de test
-*/
+﻿/****************************************************************************
+ * Fichier: main.cpp
+ * Auteur: Alexandre MAO
+ * Date: 31 aout 2016
+ * Mise à jour : 31 mai 2019 par Anass Bahir <anass.bahir@polymtl.ca> et Haroun Khalfi <haroun.khalfi@polymtl.ca>
+ * Description: Programme de test
+ ****************************************************************************/
 
 #include <iostream>
 #include "Creature.h"
