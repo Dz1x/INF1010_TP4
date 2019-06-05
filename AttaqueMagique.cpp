@@ -1,11 +1,9 @@
 
 #include "AttaqueMagique.h"
+#include "AttaqueMagiqueConfusion.h"
+#include "AttaqueMagiquePoison.h"
 
-ostream & operator<<(ostream & os, const AttaqueMagique & attaqueMagique)
-{
-	os << "attaque de type :" << attaqueMagique.obtenirTypeAttaque() << " qui a une duree de " << attaqueMagique.obtenirDuree() << endl;
-	return os;
-}
+
 
 AttaqueMagique::AttaqueMagique():duree_(0)
 {
@@ -18,6 +16,10 @@ AttaqueMagique::AttaqueMagique(const int & duree):duree_(duree)
 
 AttaqueMagique::~AttaqueMagique()
 {
+
+
+
+
 }
 
 int AttaqueMagique::obtenirDuree() const
@@ -32,10 +34,10 @@ void AttaqueMagique::modifierDuree(const int & duree)
 
 string AttaqueMagique::obtenirTypeAttaque() const
 {
-	return typeid(*this).name();
+	
 }
 
-void AttaqueMagique::appliquerAttaquer(Creature & creature)
+void AttaqueMagique::appliquerAttaque(Creature & creature)
 {
 }
 
@@ -44,4 +46,14 @@ void AttaqueMagique::appliquerAttaquer(Creature & creature)
 bool AttaqueMagique::estfini()
 {
 	return true;
+}
+ostream & operator<<(ostream & os,AttaqueMagique & attaqueMagique)
+{
+	if(dynamic_cast<AttaqueMagiqueConfusion*>(&attaqueMagique))
+	 return os << "attaque magique confusion " << " qui a une duree de " << attaqueMagique.obtenirDuree() << endl;
+	else if (dynamic_cast<AttaqueMagiquePoison*>(&attaqueMagique))
+	return os << "attaque magique poison " << " qui a une duree de " << attaqueMagique.obtenirDuree() << endl;
+
+
+	
 }
