@@ -12,12 +12,12 @@ public:
 
 	AttaqueMagique();
 	AttaqueMagique(const int&duree);
-	~AttaqueMagique();
+	virtual ~AttaqueMagique()=default;
 
 	int obtenirDuree() const;
 	void modifierDuree(const int&duree);
     string obtenirTypeAttaque() const;
-	virtual void appliquerAttaquer(Creature&creature);
+	virtual void appliquerAttaque(Creature&creature)=0;
 	bool estfini();
 
 	friend ostream&operator<<(ostream&os,const AttaqueMagique&attaqueMagique);
