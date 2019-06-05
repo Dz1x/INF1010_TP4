@@ -9,7 +9,7 @@ class AttaqueMagiquePoison : public AttaqueMagique {
 public:
 	AttaqueMagiquePoison();
 	AttaqueMagiquePoison(const int&duree);
-	~AttaqueMagiquePoison();
+	virtual ~AttaqueMagiquePoison();
 	virtual void appliquerAttaque(Creature&creature);
 	bool estFini();
 
