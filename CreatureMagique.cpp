@@ -2,12 +2,14 @@
  * Fichier: CreatureMagique.cpp
  * Auteur: Anass Bahir <anass.bahir@polymtl.ca> et Haroun Khalfi <haroun.khalfi@polymtl.ca>
  * Date: 28 mai 2019
- * Description: Implémentation de la classe CreatureMagique
+ * Description: ImplÃ©mentation de la classe CreatureMagique
  ****************************************************************************/
 
 #include <iostream>
 #include <string>
 #include "CreatureMagique.h"
+#include "AttaqueMagiquePoison.h"
+#include "AttaqueMagiqueConfusion.h"
 
 CreatureMagique::CreatureMagique(): Creature(), attaqueMagique_(nullptr) {
 }
@@ -47,7 +49,7 @@ AttaqueMagique* CreatureMagique::obtenirAttaque() const {
 
 void CreatureMagique::modifierBonus(unsigned int bonus) { bonus_ = bonus; }
 
-bool CreatureMagique::apprendreAttaqueMagique(const AttaqueMagique* attaqueMagique) {
+bool CreatureMagique::apprendreAttaqueMagique( AttaqueMagique* attaqueMagique) {
 
 	if (attaqueMagique_ == nullptr) {
 		attaqueMagique_ = attaqueMagique;
@@ -79,17 +81,7 @@ CreatureMagique & CreatureMagique::operator=(const CreatureMagique&creatureMagiq
 {
 	if (this != &creatureMagique)
 	{
-		nom_ = creatureMagique.obtenirNom();
-		attaque_ = creatureMagique.attaque_;
-		defense_ = creatureMagique.defense_;
-		pointDeVie_ = creatureMagique.pointDeVie_;
-		pointDeVieTotal_ = creatureMagique.pointDeVieTotal_;
-		energie_ = creatureMagique.energie_;
-		energieTotal_ = creatureMagique.energieTotal_;
-		experience_ = creatureMagique.experience_;
-		experienceNecessaire_ = creatureMagique.experienceNecessaire_;
-		niveau_ = creatureMagique.niveau_;
-		pouvoirs_ = creatureMagique.pouvoirs_;
+		*this = creatureMagique;
 		bonus_ = creatureMagique.bonus_;
 		if (typeid(*attaqueMagique_).name() == typeid(AttaqueMagiquePoison).name())
 		{
@@ -117,7 +109,7 @@ void CreatureMagique::attaquer(const Pouvoir & pouvoir, Creature& creature)
 	modifierPointDeVie(obtenirPointDeVie() + bonus_);
 	if (obtenirPointDeVie() > obtenirPointDeVieTotal())
 	{
-		modifierPointDeVie(pointDeVieTotal_);
+		modifierPointDeVie(creature.obtenirPointDeVie());
 	}
 }
 
@@ -128,20 +120,9 @@ void CreatureMagique::attaquer(const Pouvoir & pouvoir, Creature& creature)
 ****************************************************************************/
 ostream & operator<<(ostream & os, const CreatureMagique & creatureMagique)
 {
-	os << "La creature magique " << creatureMagique.obtenirNom() << " a " << creatureMagique.obtenirAttaque() << " en attaque et " << creatureMagique.obtenirDefense() << " en defense, " << endl
-		<< "Il a " << creatureMagique.obtenirPointDeVie() << "/" << creatureMagique.obtenirPointDeVieTotal() << " PV et " << creatureMagique.obtenirEnergie() << "/" << creatureMagique.obtenirEnergieTotale() << " Energie" << endl
-		<< "Il est au niveau " << creatureMagique.obtenirNiveau() << " avec " << creatureMagique.obtenirExperience() << "d'XP" << endl
-		<< "Il lui manque " << creatureMagique.obtenirExperienceNecessaire() - creatureMagique.obtenirExperience() << " jusqu'au prochain niveau " << endl;
-	os << "Pouvoirs : " << endl;
-	if (!creatureMagique.obtenirPouvoirs().empty()) {
-		for (Pouvoir* pouvoir : creatureMagique.obtenirPouvoirs()) {
-			os << *pouvoir << " ";
-		}
-	}
-	else
-		os << creatureMagique.obtenirNom() << " ne connait aucun pouvoir";
+	os << creatureMagique;
 	os << endl;
 	os << "Le bonus de la creature est de " << creatureMagique.obtenirBonus();
-	os << *(creature.obtenirAttaqueMagique()) << endl;
+	os << *(creatureMagique.obtenirAttaque()) << endl;
 	return os;
 }
