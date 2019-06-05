@@ -9,7 +9,7 @@
 #ifndef CREATURE_MAGIQUE_H
 #define CREATURE_MAGIQUE_H
 
-#include "Creature.h"
+
 #include "AttaqueMagiqueConfusion.h"
 #include "AttaqueMagiquePoison.h"
 
@@ -33,7 +33,7 @@ public:
 
 	void modifierBonus(unsigned int bonus);
 
-	bool apprendreAttaqueMagique(const AttaqueMagique* attaqueMagique);
+	bool apprendreAttaqueMagique(AttaqueMagique* attaqueMagique);
 	bool oublierAttaqueMagique(const AttaqueMagique* attaqueMagique);
 
 	CreatureMagique& operator=(const CreatureMagique& creatureMagique);

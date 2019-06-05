@@ -1,11 +1,11 @@
 /****************************************************************************
  * Fichier: Dresseur.h
  * Auteur: Alexandre Mao
- * Date: 31 aoÃ»t 2016
- * Mise Ã  jour : 14 mai par David Dratwa
- * Mise Ã  jour : 31 mai 2019 par Anass Bahir <anass.bahir@polymtl.ca> et Haroun Khalfi <haroun.khalfi@polymtl.ca>
- * Description: DÃ©finition de la classe Dresseur
- *				Les dresseurs sont les Ãªtres capables d'attraper des crÃ©atures.
+ * Date: 31 août 2016
+ * Mise à jour : 14 mai par David Dratwa
+ * Mise à jour : 31 mai 2019 par Anass Bahir <anass.bahir@polymtl.ca> et Haroun Khalfi <haroun.khalfi@polymtl.ca>
+ * Description: Définition de la classe Dresseur
+ *				Les dresseurs sont les êtres capables d'attraper des créatures.
  ****************************************************************************/
 
 #ifndef DRESSEUR_H

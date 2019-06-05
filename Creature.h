@@ -48,7 +48,7 @@ public:
 
 	vector<Pouvoir*> obtenirPouvoirs() const;
 	bool apprendrePouvoir(Pouvoir* pouvoir);
-	bool oublierPouvoir(const Pouvoir*pouvoir);
+	bool oublierPouvoir(const Pouvoir* pouvoir);
 	void modifierPouvoirs(vector<Pouvoir*> pouvoirs);
 
 	bool operator==(const Creature& creature) const;

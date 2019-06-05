@@ -2,7 +2,7 @@
  * Fichier: CreatureMagique.cpp
  * Auteur: Anass Bahir <anass.bahir@polymtl.ca> et Haroun Khalfi <haroun.khalfi@polymtl.ca>
  * Date: 28 mai 2019
- * Description: ImplÃ©mentation de la classe CreatureMagique
+ * Description: Implémentation de la classe CreatureMagique
  ****************************************************************************/
 
 #include <iostream>
@@ -11,13 +11,13 @@
 #include "AttaqueMagiquePoison.h"
 #include "AttaqueMagiqueConfusion.h"
 
-CreatureMagique::CreatureMagique(): Creature(), attaqueMagique_(nullptr) {
+CreatureMagique::CreatureMagique() : Creature(), attaqueMagique_(nullptr) {
 }
- /****************************************************************************
-   * Fonction: CreatureMagique::CreatureMagique
-   * Description: Appel du constructeur par parametre de la classe mere avant de definir le bonus
- ****************************************************************************/
-CreatureMagique::CreatureMagique(const Creature& creature, unsigned int bonus): Creature(creature), bonus_(bonus), attaqueMagique_(nullptr) {
+/****************************************************************************
+  * Fonction: CreatureMagique::CreatureMagique
+  * Description: Appel du constructeur par parametre de la classe mere avant de definir le bonus
+****************************************************************************/
+CreatureMagique::CreatureMagique(const Creature& creature, unsigned int bonus) : Creature(creature), bonus_(bonus), attaqueMagique_(nullptr) {
 }
 
 /****************************************************************************
@@ -43,13 +43,29 @@ unsigned int CreatureMagique::obtenirBonus() const
 	return bonus_;
 }
 
+/****************************************************************************
+  * Fonction: CreatureMagique::obtenirAttaque
+  * Description: Permet d'obtenir l'attaque magique de la creature magique
+****************************************************************************/
 AttaqueMagique* CreatureMagique::obtenirAttaque() const {
 	return attaqueMagique_;
 }
 
+/****************************************************************************
+ * Fonction: CreatureMagique::modifierBonus
+ * Description: Modifie bonus_
+ * Paramètres: - (unsigned int) bonus: la nouvelle valeur du bonus
+ * Retour: aucun
+ ****************************************************************************/
 void CreatureMagique::modifierBonus(unsigned int bonus) { bonus_ = bonus; }
 
-bool CreatureMagique::apprendreAttaqueMagique( AttaqueMagique* attaqueMagique) {
+/****************************************************************************
+ * Fonction: CreatureMagique::apprendreAttaqueMagique
+ * Description: Permet d'apprendre à une créature magique une nouvelle attaque magique
+ * Paramètres: - (AttaqueMagique*) attaqueMagique: Un pointeur qui pointe vers la nouvelle attaque magique.
+ * Retour: (bool) true or false
+ ****************************************************************************/
+bool CreatureMagique::apprendreAttaqueMagique(AttaqueMagique* attaqueMagique) {
 
 	if (attaqueMagique_ == nullptr) {
 		attaqueMagique_ = attaqueMagique;
@@ -67,6 +83,12 @@ bool CreatureMagique::apprendreAttaqueMagique( AttaqueMagique* attaqueMagique) {
 	return true;
 }
 
+/****************************************************************************
+ * Fonction: CreatureMagique::oublierAttaqueMagique
+ * Description: Permet à une créature magique d'oublier une attaque magique
+ * Paramètres: - (AttaqueMagique*) attaqueMagique: Un pointeur qui pointe vers l'attaque magique à oublier.
+ * Retour: (bool) true or false
+ ****************************************************************************/
 bool CreatureMagique::oublierAttaqueMagique(const AttaqueMagique* attaqueMagique) {
 	delete attaqueMagique_;
 	attaqueMagique_ = nullptr;
@@ -115,7 +137,7 @@ void CreatureMagique::attaquer(const Pouvoir & pouvoir, Creature& creature)
 
 /****************************************************************************
   * Fonction:  operator<<
-  * Description: surcharge de l'operateur << en utilisant celui de la classe creature pour afficher 
+  * Description: surcharge de l'operateur << en utilisant celui de la classe creature pour afficher
 				 les attributs de base avant de rajouter l'affichage du bonus
 ****************************************************************************/
 ostream & operator<<(ostream & os, const CreatureMagique & creatureMagique)
