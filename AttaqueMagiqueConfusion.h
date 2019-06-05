@@ -7,10 +7,10 @@
 
 class AttaqueMagiqueConfusion : public AttaqueMagique {
 	
-
+public:
 	AttaqueMagiqueConfusion();
 	AttaqueMagiqueConfusion(const int&duree);
-	~AttaqueMagiqueConfusion();
+	virtual ~AttaqueMagiqueConfusion();
 	
 	virtual void appliquerAttaque(Creature&creature);
 
