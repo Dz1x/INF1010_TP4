@@ -29,7 +29,7 @@ public:
 	Dresseur* choisirDresseurAleatoire() const;
 	Creature* choisirCreatureAleatoire() const;
 
-	bool attraperCreature(Dresseur* dresseur, Creature& creature);
+	bool attraperCreature(Dresseur* dresseur, Creature* creature);
 	bool relacherCreature(Dresseur* dresseur, const string& nomCreature);
 
 	PolyLand& operator+=(Dresseur* dresseur);
