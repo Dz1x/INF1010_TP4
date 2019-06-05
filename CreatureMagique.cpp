@@ -31,7 +31,7 @@ CreatureMagique::CreatureMagique(const CreatureMagique & creatureMagique)
 }
 
 CreatureMagique::~CreatureMagique() {
-	// Voir si il y a un truc a faire ici
+	
 }
 
 /****************************************************************************
@@ -47,7 +47,7 @@ unsigned int CreatureMagique::obtenirBonus() const
   * Fonction: CreatureMagique::obtenirAttaque
   * Description: Permet d'obtenir l'attaque magique de la creature magique
 ****************************************************************************/
-AttaqueMagique* CreatureMagique::obtenirAttaque() const {
+AttaqueMagique* CreatureMagique::obtenirAttaqueMagique() const {
 	return attaqueMagique_;
 }
 
@@ -142,9 +142,10 @@ void CreatureMagique::attaquer(const Pouvoir & pouvoir, Creature& creature)
 ****************************************************************************/
 ostream & operator<<(ostream & os, const CreatureMagique & creatureMagique)
 {
-	os << creatureMagique;
+	os << static_cast<Creature>(creatureMagique);
 	os << endl;
-	os << "Le bonus de la creature est de " << creatureMagique.obtenirBonus();
-	os << *(creatureMagique.obtenirAttaque()) << endl;
+	os << "Le bonus de la creature magique est de " << creatureMagique.obtenirBonus()<<endl;
+	os << "Cette creature de la classe creatureMagique a une attaque de type : " <<  creatureMagique.obtenirAttaqueMagique() << endl;
 	return os;
 }
+

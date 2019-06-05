@@ -22,7 +22,7 @@ public:
 	Creature();
 	Creature(const string& nom, unsigned int attaque, unsigned int defense, unsigned int pointDeVie, unsigned int energie);
 	Creature(const Creature& creature);
-	~Creature();
+	virtual ~Creature();
 
 	string obtenirNom() const;
 	unsigned int obtenirAttaque() const;
@@ -35,7 +35,7 @@ public:
 	unsigned int obtenirExperienceNecessaire() const;
 	unsigned int obtenirNiveau() const;
 
-	void attaquer(const Pouvoir& pouvoir, Creature& creature);
+	virtual void attaquer(const Pouvoir& pouvoir, Creature& creature);
 	int experienceGagnee(const Creature& creature);
 
 	void modifierAttaque(unsigned int attaque);
@@ -56,6 +56,8 @@ public:
 	Creature& operator=(const Creature& creature);
 	friend bool operator==(const string& nom, const Creature&creature);
 	friend ostream& operator<<(ostream& o, const Creature&creature);
+
+	virtual string obtenirTypeCreature();
 
 private:
 

@@ -276,12 +276,12 @@ ostream& operator<<(ostream& os, const PolyLand& polyLand) {
 	for (Dresseur* dresseur : polyLand.dresseurs_) {
 		os << *dresseur;
 	}
-	cout << endl;
+	os << endl;
 
 	for (Creature* creature : polyLand.creatures_) {
 		os << *creature;
 	}
-	cout << endl;
+	os << endl;
 
 	return os;
 }

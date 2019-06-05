@@ -39,7 +39,6 @@ Dresseur::Dresseur(const string& nomDresseur, const string& nomEquipe) : objetMa
 Dresseur::~Dresseur() {
 	while (creatures_.size() != 0)
 	{
-		delete creatures_.back();
 		creatures_.back() = nullptr;
 		creatures_.pop_back();
 	}
@@ -67,7 +66,7 @@ string Dresseur::obtenirNomEquipe() const { return nomEquipe_; }
  * Paramètres: - (string) nom : le nom de la créature que l'on cherche
  * Retour: (Creature*) creatureDansVecteur ou nullptr
  ****************************************************************************/
-Creature * Dresseur::obtenirUneCreature(const string & nom) const {
+Creature * Dresseur::obtenirUneCreature(const string & nom) const{
 	for (Creature* creatureDansVecteur : creatures_) {
 		if (creatureDansVecteur->operator==(nom)) {
 			return creatureDansVecteur;

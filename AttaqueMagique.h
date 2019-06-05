@@ -29,10 +29,9 @@ public:
 	void modifierDuree(unsigned int duree);
 
 	virtual void appliquerAttaque(Creature& creature) = 0;
+    virtual bool estfini();
 
-	virtual bool estfini();
-
-	friend ostream&operator<<(ostream& os, const AttaqueMagique& attaqueMagique);
+	friend ostream&operator<<(ostream& os,  AttaqueMagique* attaqueMagique);
 
 private:
 	unsigned int duree_;

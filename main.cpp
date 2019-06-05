@@ -78,7 +78,7 @@ int main()
 
 	// A COMPLETER...
 	CreatureMagique Pokachoum(Pokachu, 3);
-	Pokachoum.modifierNom("Pockachoum");
+	Pokachoum.modifierNom("Pokachoum");
 	Pokachoum.modifierDefense(7);
 
 	std::cout << "CRÉATION DES ATTAQUES MAGIQUES" << std::endl;

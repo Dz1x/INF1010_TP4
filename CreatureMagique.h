@@ -24,12 +24,12 @@ public:
 
     CreatureMagique(const CreatureMagique& creatureMagique);
 
-    ~CreatureMagique(); // À MODIFIER (si nécessaire...)
+	virtual ~CreatureMagique();
 
-    void attaquer(const Pouvoir& pouvoir, Creature& creature); // À MODIFIER (si nécessaire...)
+    virtual void attaquer(const Pouvoir& pouvoir, Creature& creature); 
 
 	unsigned int obtenirBonus() const;
-	AttaqueMagique* obtenirAttaque() const;
+	AttaqueMagique* obtenirAttaqueMagique() const;
 
 	void modifierBonus(unsigned int bonus);
 
@@ -38,7 +38,9 @@ public:
 
 	CreatureMagique& operator=(const CreatureMagique& creatureMagique);
 
-	friend ostream& operator<<(ostream& os, const CreatureMagique& creature); // À MODIFIER (si nécessaire...)
+
+
+	friend ostream& operator<<(ostream& os, const CreatureMagique& creature); 
 
 private:
     unsigned int bonus_;

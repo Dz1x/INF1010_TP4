@@ -17,7 +17,7 @@
   * Paramètres: aucun
   * Retour: aucun
   ****************************************************************************/
-AttaqueMagique::AttaqueMagique(): duree_(0) {}
+AttaqueMagique::AttaqueMagique(): duree_(DURE_MINMUM) {}
 
 /****************************************************************************
  * Fonction: AttaqueMagique::AttaqueMagique
@@ -70,9 +70,9 @@ bool AttaqueMagique::estfini() { return true; }
   * Description: surcharge de l'operateur << en utilisant dynamic_cast pour afficher
 				 les information d'une attaque magique.
 ****************************************************************************/
-ostream & operator<<(ostream & os, AttaqueMagique & attaqueMagique) {
-	if (dynamic_cast<AttaqueMagiqueConfusion*>(&attaqueMagique))
-		return os << "attaque magique confusion " << " qui a une duree de " << attaqueMagique.obtenirDuree() << endl;
-	else if (dynamic_cast<AttaqueMagiquePoison*>(&attaqueMagique))
-		return os << "attaque magique poison " << " qui a une duree de " << attaqueMagique.obtenirDuree() << endl;
+ostream & operator<<(ostream & os, AttaqueMagique* attaqueMagique) {
+	if (dynamic_cast<AttaqueMagiqueConfusion*>(attaqueMagique))
+	return os << "attaque magique confusion " << " qui a une duree de " << attaqueMagique->obtenirDuree() << endl;
+	else if (dynamic_cast<AttaqueMagiquePoison*>(attaqueMagique))
+		return os << "attaque magique poison " << " qui a une duree de " << attaqueMagique->obtenirDuree() << endl;
 }
