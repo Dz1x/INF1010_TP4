@@ -163,7 +163,7 @@ Creature* PolyLand::choisirCreatureAleatoire() const {
  *			   - (Dresseur*) dresseur: C'est le dresseur qui a capturé la créature
  * Retour: (bool) true or false
  ****************************************************************************/
-bool PolyLand::attraperCreature(Dresseur* dresseur, Creature& creature) {
+bool PolyLand::attraperCreature(Dresseur* dresseur, Creature* creature) {
 	return dresseur->ajouterCreature(creature);
 }
 
